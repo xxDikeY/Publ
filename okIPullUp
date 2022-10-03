@@ -1,0 +1,90 @@
+Console.WriteLine("0");
+
+again:
+
+string ex = Console.ReadLine();
+string ex1 = "", ex2 = "", again = "";
+int indx = 0, quanindx = 0, quanindx1 = 0;
+
+ex1 = ex.Replace(" ", ""); // Убирает пробелы в выражении 
+
+for (int i = 0; i < ex1.Length; i++) // Cколько знаков присутсвует
+{
+    switch (ex1[i])
+    {
+        case '+':
+            indx++;
+            break;
+
+        case '-':
+            indx++;
+            break;
+    }
+}
+
+int[] Num = new int[indx + 1];
+char[] Zn = new char[indx];
+
+
+for (int i = 0; i < indx; i++) // Разделение строки на числа и действия
+{
+    ex2 = ex1;
+
+    quanindx = ex1.IndexOf('+');
+    quanindx1 = ex1.IndexOf('-');
+
+    if (quanindx == -1) // Проверка на позицию + и - или их отсутствие
+    {
+        quanindx = ex1.IndexOf('-');
+        Zn[i] = '-';
+    }
+    else if (quanindx1 == -1)
+    {
+        quanindx = ex1.IndexOf('+');
+        Zn[i] = '+';
+    }
+    else if (quanindx > quanindx1)
+    {
+        quanindx = ex1.IndexOf('-');
+        Zn[i] = '-';
+    }
+    else if (quanindx < quanindx1)
+    {
+        quanindx = ex1.IndexOf('+');
+        Zn[i] = '+';
+    }
+
+    ex1 = ex1.Remove(0, quanindx + 1); // Выражение без первостоящего числа
+    ex2 = ex2.Substring(0, quanindx); // Первостоящее число
+    Num[i] = Convert.ToInt32(ex2); // Записывает превостоящее число
+
+}
+Num[Num.Length - 1] = Convert.ToInt32(ex1); // Записывает последнее число
+
+for(int i = 0; i < Zn.Length; i++) // Производит действия
+{
+    switch (Zn[i])
+    {
+        case '+':
+            Num[i+1] = Num[i] + Num[i + 1];
+            break;
+        case '-':
+            Num[i+1] = Num[i] - Num[i + 1];
+            break;
+    }
+}
+
+// Вывод ответа
+Console.Clear();
+Console.WriteLine($"{Num[Num.Length - 1]}\n{ex}\n");
+
+Console.WriteLine("Заново?\n1 - Да\n2 - Нет");  //Повторение программы
+again = Console.ReadLine();
+
+if (again == "1")
+{
+    Console.Clear ();
+    Console.WriteLine(Num[Num.Length - 1]);
+    goto again;
+}
+
