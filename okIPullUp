@@ -4,9 +4,16 @@ again:
 
 string ex = Console.ReadLine();
 string ex1 = "", ex2 = "", again = "";
-int indx = 0, quanindx = 0, quanindx1 = 0;
+int indx = 0, quanindx = 0, quanindx1 = 0, minF = 0;
 
 ex1 = ex.Replace(" ", ""); // Убирает пробелы в выражении 
+switch (ex1[0]) // Проверка на минус
+{
+    case '-':
+        ex1 = ex1.Remove(0, 1);
+        minF++;
+        break;
+}
 
 for (int i = 0; i < ex1.Length; i++) // Cколько знаков присутсвует
 {
@@ -24,6 +31,8 @@ for (int i = 0; i < ex1.Length; i++) // Cколько знаков присут�
 
 int[] Num = new int[indx + 1];
 char[] Zn = new char[indx];
+
+
 
 
 for (int i = 0; i < indx; i++) // Разделение строки на числа и действия
@@ -61,15 +70,20 @@ for (int i = 0; i < indx; i++) // Разделение строки на чис�
 }
 Num[Num.Length - 1] = Convert.ToInt32(ex1); // Записывает последнее число
 
-for(int i = 0; i < Zn.Length; i++) // Производит действия
+if (minF == 1) // Отриц
+{
+    Num[0] = Num[0] - Num[0] - Num[0];
+}
+
+for (int i = 0; i < Zn.Length; i++) // Производит действия
 {
     switch (Zn[i])
     {
         case '+':
-            Num[i+1] = Num[i] + Num[i + 1];
+            Num[i + 1] = Num[i] + Num[i + 1];
             break;
         case '-':
-            Num[i+1] = Num[i] - Num[i + 1];
+            Num[i + 1] = Num[i] - Num[i + 1];
             break;
     }
 }
@@ -83,8 +97,7 @@ again = Console.ReadLine();
 
 if (again == "1")
 {
-    Console.Clear ();
+    Console.Clear();
     Console.WriteLine(Num[Num.Length - 1]);
     goto again;
 }
-
