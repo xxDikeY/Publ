@@ -1,103 +1,51 @@
-Console.WriteLine("0");
+#include <iostream>
+#include <math.h>
+using namespace std;
 
-again:
 
-string ex = Console.ReadLine();
-string ex1 = "", ex2 = "", again = "";
-int indx = 0, quanindx = 0, quanindx1 = 0, minF = 0;
-
-ex1 = ex.Replace(" ", ""); // Убирает пробелы в выражении 
-switch (ex1[0]) // Проверка на минус
+int main()
 {
-    case '-':
-        ex1 = ex1.Remove(0, 1);
-        minF++;
-        break;
-}
+	setlocale(LC_ALL, "RUS");
 
-for (int i = 0; i < ex1.Length; i++) // Cколько знаков присутсвует
-{
-    switch (ex1[i])
-    {
-        case '+':
-            indx++;
-            break;
+	double x = 0, fAnsw, sAnsw, tAnsw, qAnsw, answ;
 
-        case '-':
-            indx++;
-            break;
-    }
-}
+	cout << "Введите x\n";
+	cin >> x;
 
-int[] Num = new int[indx + 1];
-char[] Zn = new char[indx];
+	if (6.0 - x > 0.0) {
+		fAnsw = sqrt(6.0 - x);
 
+		if ((x * x) - 2.0 * x + 1.0 > 0.0) {
+			sAnsw = sqrt((x * x) - 2.0 * x + 1.0);
 
+			if (x > 0.0) {
+				tAnsw = log(x);
 
+				if (exp(x - 5.0) - 1.0 != 0.0) {
+					qAnsw = exp(x - 5.0) - 1.0;
 
-for (int i = 0; i < indx; i++) // Разделение строки на числа и действия
-{
-    ex2 = ex1;
+					answ = (fAnsw / sAnsw) + (tAnsw / qAnsw);
+					cout << answ << "\n";
+				}
+				else {
+					cout << "Деление на ноль";
+				}
+			}
+			else {
+				cout << "Логарифм отрицательного числа";
+			}
+		}
+		else {
 
-    quanindx = ex1.IndexOf('+');
-    quanindx1 = ex1.IndexOf('-');
+			if ((x * x) - 2 * x + 1 < 0) {
+				cout << "Корень из отрицательного числа";
+			}
+			else {
+				cout << "Деление на ноль1";
+			}
+		}
 
-    if (quanindx == -1) // Проверка на позицию + и - или их отсутствие
-    {
-        quanindx = ex1.IndexOf('-');
-        Zn[i] = '-';
-    }
-    else if (quanindx1 == -1)
-    {
-        quanindx = ex1.IndexOf('+');
-        Zn[i] = '+';
-    }
-    else if (quanindx > quanindx1)
-    {
-        quanindx = ex1.IndexOf('-');
-        Zn[i] = '-';
-    }
-    else if (quanindx < quanindx1)
-    {
-        quanindx = ex1.IndexOf('+');
-        Zn[i] = '+';
-    }
-
-    ex1 = ex1.Remove(0, quanindx + 1); // Выражение без первостоящего числа
-    ex2 = ex2.Substring(0, quanindx); // Первостоящее число
-    Num[i] = Convert.ToInt32(ex2); // Записывает превостоящее число
-
-}
-Num[Num.Length - 1] = Convert.ToInt32(ex1); // Записывает последнее число
-
-if (minF == 1) // Отриц
-{
-    Num[0] = Num[0] - Num[0] - Num[0];
-}
-
-for (int i = 0; i < Zn.Length; i++) // Производит действия
-{
-    switch (Zn[i])
-    {
-        case '+':
-            Num[i + 1] = Num[i] + Num[i + 1];
-            break;
-        case '-':
-            Num[i + 1] = Num[i] - Num[i + 1];
-            break;
-    }
-}
-
-// Вывод ответа
-Console.Clear();
-Console.WriteLine($"{Num[Num.Length - 1]}\n{ex}\n");
-
-Console.WriteLine("Заново?\n1 - Да\n2 - Нет");  //Повторение программы
-again = Console.ReadLine();
-
-if (again == "1")
-{
-    Console.Clear();
-    Console.WriteLine(Num[Num.Length - 1]);
-    goto again;
+	}
+	else
+		cout << "Корень из отрицательного числа";
 }
